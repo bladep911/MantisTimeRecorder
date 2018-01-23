@@ -1,18 +1,6 @@
-/admin
-/api
-/config
-/core
-/css
-/doc
-/fonts
-/images
-/js
-/lang
-/library
-/log
-/scripts
-/vendor
-/*.php
-/*.sample
-/*.json
-/*.lock
+#ignore mantis files
+*
+#consider the repo files mixed in the mantis instance
+!.gitignore
+!documentation/
+!plugins/TimeRecorder
