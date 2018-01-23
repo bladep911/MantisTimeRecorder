@@ -3,4 +3,4 @@
 #consider the repo files mixed in the mantis instance
 !.gitignore
 !documentation/
-!plugins/TimeRecorder
+!plugins/MantisTimeRecorder
