@@ -1,18 +1,76 @@
-<php
-class ExamplePlugin extends MantisPlugin {
-    function register() {
-        $this->name = 'Time Recorder';    # Proper name of plugin
-        $this->description = 'Live time recorder for tasks';    # Short description of the plugin
-        $this->page = '';           # Default plugin page
+<?php
 
-        $this->version = '1.0';     # Plugin version string
-        $this->requires = array(    # Plugin dependencies
-            'MantisCore' => '2.0',  # Should always depend on an appropriate
-                                    # version of MantisBT
+# MantisTimeRecorder - a live time recorder plugin for MantisBT
+#
+
+#if( !defined( 'MANTIS_VERSION' ) ) { exit(); }
+
+class MantisTimeRecorderPlugin extends MantisPlugin {
+
+    # Plugin definition
+	function register() {
+		$this->name         = plugin_lang_get( 'title' );
+		$this->description  = plugin_lang_get( 'description' );
+		$this->page         = 'config_page';
+
+		$this->version      = '1.0.0';
+		$this->requires = array(
+			'MantisCore' => '2.0.0',
+		);
+
+		$this->author       = 'Andrea Boggia <bladep911>';
+		$this->contact      = 'andrea.boggia@gmail.com';
+		$this->url          = '';
+	}
+
+    # Plugin configuration
+	function config() {
+		return array(
+            #'access_threshold'  => DEVELOPER, // Set global access level requireed to access plugin
+			'foo_or_bar' => 'foo'
+		);
+	}
+	
+	# Add start menu item
+	function showreport_menu() {
+        #if ( access_has_global_level( plugin_config_get( 'access_threshold' ) ) ) {
+            return array(
+                array( 
+                    'title'         => plugin_lang_get( 'title' ),
+                    #'access_level'  => plugin_config_get( 'access_threshold' ),
+                    'url'           => 'plugin.php?page=MantisTimeRecorder/start_page',
+                    'icon'          => 'fa-space-shuttle'
+                ),
+            );
+		#}
+	}
+	
+	function events() {
+        return array(
+            'EVENT_EXAMPLE_FOO' => EVENT_TYPE_EXECUTE,
+            'EVENT_EXAMPLE_BAR' => EVENT_TYPE_CHAIN,
         );
+    }
+	
+	function wurst($event, $bugid){
+		echo 'wurst '.$bugid ;
+	}
+	
+	function hooks() {
+        return array(
+			'EVENT_MENU_MAIN' => 'showreport_menu',
+            'EVENT_EXAMPLE_FOO' => 'foo',
+            'EVENT_EXAMPLE_BAR' => 'bar',
+			'EVENT_VIEW_BUG_DETAILS' => 'wurst'
+        );
+    }
+	
+	function foo( $p_event ) {
+        echo 'In method foo(). ';
+    }
 
-        $this->author = 'Bladep911';         # Author/team name
-        $this->contact = 'andrea.boggia@gmail.com';        # Author/team e-mail address
-        $this->url = '';            # Support webpage
+    function bar( $p_event, $p_chained_param ) {
+        return str_replace( 'foo', 'bar', $p_chained_param );
     }
 }
+?>

@@ -1,0 +1,9 @@
+<?php
+
+# MantisTimeRecorder - a live time recorder plugin for MantisBT
+$s_plugin_MantisTimeRecorder_title          = 'MantisTimeRecorder';
+$s_plugin_MantisTimeRecorder_description           = 'Mantis Time Recorder Plugin';
+
+$s_plugin_MantisTimeRecorder_configuration = "Configuration";
+$s_plugin_MantisTimeRecorder_foo_or_bar = "Foo or Bar?";
+$s_plugin_MantisTimeRecorder_reset = "Reset Value";
