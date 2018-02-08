@@ -1,0 +1,46 @@
+.clock{
+    width: auto !important;
+    margin-bottom: 0px !important;
+}
+
+.btn-run, .btn-save{
+    margin-top:25px;
+}
+
+.flip-clock-wrapper ul li a div div.inn{
+    font-size: 40px !important;
+}
+
+.flip-clock-wrapper ul li a div div.inn{
+    font-size: 40px !important;
+}
+
+.flip-clock-wrapper ul li{
+    line-height: 40px !important;
+}
+
+.flip-clock-wrapper ul{
+    height: 40px !important;
+    width: 40px !important;
+    margin: 2px !important;
+}
+
+.flip-clock-divider {
+    height: 50px!important;
+}
+
+.flip-clock-divider .flip-clock-label {
+    right: -65px !important;
+}
+
+.btn-run > span.start-text:before{
+    content:'Start';    
+}
+
+.btn-run > span.stop-text:before{
+    content:'Stop';    
+}
+
+.btn-save > span.save-text:before{
+    content:'Save';    
+}

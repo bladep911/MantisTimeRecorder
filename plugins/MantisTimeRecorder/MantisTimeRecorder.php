@@ -30,6 +30,34 @@ class MantisTimeRecorderPlugin extends MantisPlugin {
 			'foo_or_bar' => 'foo'
 		);
 	}
+
+	# Schema definition
+	function schema() {
+		return array(
+			array( 'CreateTableSQL', array( plugin_table('data'), "
+				id                  I       NOTNULL UNSIGNED AUTOINCREMENT PRIMARY,
+				bug_id              I       NOTNULL UNSIGNED,
+				user_id             I       NOTNULL UNSIGNED,
+				time				I		NOTNULL DEFAULT 0 UNSIGNED
+				" )
+			),
+		);
+	}
+	
+	/**
+	 * Include javascript and css
+	 * @return void
+	 */
+	function resources() {
+		if ( is_page_name( 'view.php' ) ) {
+			//prefilter only for bug detail page
+			echo '<script src="' . plugin_file('bootbox.min.js') . '"></script>';
+			echo '<script src="' . plugin_file('flipclock.js') . '"></script>';
+			echo '<script src="' . plugin_file('mantis-time-recorder.js') . '"></script>';
+			echo '<link rel="stylesheet" type="text/css" href="' . plugin_file('flipclock.css') . '" />';
+			echo '<link rel="stylesheet" type="text/css" href="' . plugin_file('mantis-time-recorder.css') . '" />';
+		}
+	}
 	
 	# Add start menu item
 	function showreport_menu() {
@@ -52,16 +80,28 @@ class MantisTimeRecorderPlugin extends MantisPlugin {
         );
     }
 	
-	function wurst($event, $bugid){
-		echo 'wurst '.$bugid ;
+	function flipclock($event, $bugid){
+		#echo '	<div class="clock" style="margin:2em;"></div>';
+		echo'<div class="row">
+			<div class="clock col-md-5" style="margin:2em;"></div>
+			<button type="button" class="btn btn-success btn-run">
+				<span class="glyphicon glyphicon-play" aria-hidden="true"></span> 
+				<span class="start-text"></span>
+			</button>
+			<button type="button" class="btn btn-default btn-save" data-bugid="'. $bugid .'">
+				<span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>
+				<span class="save-text"></span>
+			</button>
+			</div>';
 	}
 	
 	function hooks() {
         return array(
+			'EVENT_LAYOUT_RESOURCES' => 'resources',
 			'EVENT_MENU_MAIN' => 'showreport_menu',
             'EVENT_EXAMPLE_FOO' => 'foo',
             'EVENT_EXAMPLE_BAR' => 'bar',
-			'EVENT_VIEW_BUG_DETAILS' => 'wurst'
+			'EVENT_VIEW_BUG_DETAILS' => 'flipclock'
         );
     }
 	
