@@ -4,6 +4,7 @@
 #
 
 #if( !defined( 'MANTIS_VERSION' ) ) { exit(); }
+require_api( 'helper_api.php' );
 
 class MantisTimeRecorderPlugin extends MantisPlugin {
 
@@ -49,7 +50,8 @@ class MantisTimeRecorderPlugin extends MantisPlugin {
 	 * @return void
 	 */
 	function resources() {
-		if ( is_page_name( 'view.php' ) ) {
+		$project_id = helper_get_current_project();
+		if ( is_page_name( 'view.php' ) && ($project_id >= 6 && $project_id <= 9) ) {
 			//prefilter only for bug detail page
 			echo '<script src="' . plugin_file('bootbox.min.js') . '"></script>';
 			echo '<script src="' . plugin_file('flipclock.js') . '"></script>';
@@ -81,18 +83,20 @@ class MantisTimeRecorderPlugin extends MantisPlugin {
     }
 	
 	function flipclock($event, $bugid){
-		#echo '	<div class="clock" style="margin:2em;"></div>';
-		echo'<div class="row">
-			<div class="clock col-md-5" style="margin:2em;"></div>
-			<button type="button" class="btn btn-success btn-run">
-				<span class="glyphicon glyphicon-play" aria-hidden="true"></span> 
-				<span class="start-text"></span>
-			</button>
-			<button type="button" class="btn btn-default btn-save" data-bugid="'. $bugid .'">
-				<span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>
-				<span class="save-text"></span>
-			</button>
-			</div>';
+		$project_id = helper_get_current_project();
+		if ($project_id >= 6 && $project_id <= 9) {
+			echo'<div class="row">
+				<div class="clock col-md-5" style="margin:2em;"></div>
+				<button type="button" class="btn btn-success btn-run">
+					<span class="glyphicon glyphicon-play" aria-hidden="true"></span> 
+					<span class="start-text"></span>
+				</button>
+				<button type="button" class="btn btn-default btn-save" data-bugid="'. $bugid .'">
+					<span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>
+					<span class="save-text"></span>
+				</button>
+				</div>';
+		}
 	}
 	
 	function hooks() {
