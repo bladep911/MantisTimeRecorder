@@ -50,14 +50,17 @@ class MantisTimeRecorderPlugin extends MantisPlugin {
 	 * @return void
 	 */
 	function resources() {
-		$project_id = helper_get_current_project();
-		if ( is_page_name( 'view.php' ) && ($project_id >= 6 && $project_id <= 9) ) {
-			//prefilter only for bug detail page
-			echo '<script src="' . plugin_file('bootbox.min.js') . '"></script>';
-			echo '<script src="' . plugin_file('flipclock.js') . '"></script>';
-			echo '<script src="' . plugin_file('mantis-time-recorder.js') . '"></script>';
-			echo '<link rel="stylesheet" type="text/css" href="' . plugin_file('flipclock.css') . '" />';
-			echo '<link rel="stylesheet" type="text/css" href="' . plugin_file('mantis-time-recorder.css') . '" />';
+		
+		if ( is_page_name( 'view.php' )) {
+			$project_id = helper_get_current_project();
+			if($project_id >= 6 && $project_id <= 9){
+				//prefilter only for bug detail page
+				echo '<script src="' . plugin_file('bootbox.min.js') . '"></script>';
+				echo '<script src="' . plugin_file('flipclock.js') . '"></script>';
+				echo '<script src="' . plugin_file('mantis-time-recorder.js') . '"></script>';
+				echo '<link rel="stylesheet" type="text/css" href="' . plugin_file('flipclock.css') . '" />';
+				echo '<link rel="stylesheet" type="text/css" href="' . plugin_file('mantis-time-recorder.css') . '" />';
+			}
 		}
 	}
 	
@@ -102,7 +105,7 @@ class MantisTimeRecorderPlugin extends MantisPlugin {
 	function hooks() {
         return array(
 			'EVENT_LAYOUT_RESOURCES' => 'resources',
-			'EVENT_MENU_MAIN' => 'showreport_menu',
+			//'EVENT_MENU_MAIN' => 'showreport_menu',
             'EVENT_EXAMPLE_FOO' => 'foo',
             'EVENT_EXAMPLE_BAR' => 'bar',
 			'EVENT_VIEW_BUG_DETAILS' => 'flipclock'
