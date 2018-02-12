@@ -26,8 +26,12 @@ $t_note_text = ($f_comment == '') ? 'Time Tracking' : $f_comment;
 $t_track = $f_time_hours .':'. $f_time_minutes;
 
 //add a note
-$t_bugnote_id = bugnote_add( $f_bug_id, $t_note_text, $t_track, VS_PUBLIC, BUGNOTE,
-/* attr */ '', /* user_id */ $t_current_user_id, /* send_email */ false );
+$t_bugnote_id = bugnote_add( $f_bug_id, $t_note_text, $t_track, 
+                            /*$p_private*/ false, 
+                            /*$p_type*/ BUGNOTE, 
+                            /*$p_attr*/ '', 
+                            /*$p_user_id*/ $t_current_user_id, 
+                            /*$p_send_email*/ false );
 
-//redirect to the bug page
+                            //redirect to the bug page
 print_successful_redirect_to_bug( $f_bug_id );
