@@ -32,6 +32,5 @@ $t_bugnote_id = bugnote_add( $f_bug_id, $t_note_text, $t_track,
                             /*$p_attr*/ '', 
                             /*$p_user_id*/ $t_current_user_id, 
                             /*$p_send_email*/ false );
-
-                            //redirect to the bug page
+//redirect to the bug page
 print_successful_redirect_to_bug( $f_bug_id );

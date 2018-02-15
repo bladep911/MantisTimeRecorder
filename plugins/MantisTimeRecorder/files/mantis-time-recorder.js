@@ -2,11 +2,8 @@ var clock, saveBtn, runBtn, saveDialog;
 $(document).ready(function() {
 
     window.onbeforeunload = function(e) {
-        var h = clock.time.getHours(),
-            m = clock.time.getMinutes(),
-            s = clock.time.getSeconds() - 1;
-        
-        if((clock.running || (h + m + s) <=0) && !saveDialog){
+        var s = clock.time.getSeconds() - 1;
+        if((clock.running || s > 0) && !saveDialog){
             //advise the user will lose tracking
            return "If you leave the page you will lose your time tracking. Are you sure?";
         }
@@ -60,8 +57,9 @@ $(document).ready(function() {
 
         //2. get the clock values
         var bid=$(this).data('bugid');
-        var h = clock.time.getHours();
-        var m = ((m = clock.time.getMinutes()) < 59) ? m + 1 : m; 
+        var totMins = clock.time.getMinutes();
+        var h = Math.floor(totMins / 60);
+        var m = (totMins == 0) ? 1 : totMins % 60; 
         
         //3. open the bootbox
         saveDialog = bootbox.dialog({
